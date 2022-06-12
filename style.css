@@ -1,0 +1,65 @@
+body {
+    justify-content: center;
+    padding: 50px;
+    display: flex;
+}
+
+#base {
+    height: 600px;
+    width: 400px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: grey;
+    flex: 0 0 auto;
+    border: 1px solid black;
+    border-radius: 15px;
+}
+
+#lines {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    background-color: lightgreen;
+    border: 1px solid black;
+    border-radius: 15px;
+}
+
+#lineOne,
+#lineTwo {
+    flex: auto;
+    text-align: right;
+}
+#lineOne {
+    border-bottom: 1px solid black;
+}
+
+#buttons {
+    display:flex;
+    flex-direction: column;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    flex: auto;
+}
+
+.row {
+    display: flex;
+    flex: auto;
+    margin: 10px;
+    gap: 20px;
+}
+
+button {
+    flex: 1 1 0;
+    border-radius: 15px;
+    background-color: lightgray;
+}
+
+.operator {
+    background-color: lightgreen;
+}
+
+#clear {
+    background-color: rgba(255, 0, 0, 0.623);
+}
