@@ -2,6 +2,7 @@ let firstVariable = [];
 let secondVariable = "";
 let result;
 let operator = "";
+let final;
 const numberButtons = Array.from(document.getElementsByClassName("button"));
 const operatorButtons = Array.from(document.getElementsByClassName("operator"));
 const resultButton = document.getElementById("result");
@@ -26,13 +27,13 @@ function divide(a,b) {
 
 function operate(operator,a,b) {
     if (operator == "+") {
-        result = add(a,b);
+        return add(a,b);
     } else if (operator == "-") {
-        result = substract(a,b);
+        return substract(a,b);
     } else if (operator == "*") {
-        result = multiply(a,b);
+        return multiply(a,b);
     } else if (operator == "/") {
-        result = divide(a,b)
+        return divide(a,b)
     }
     console.log(result);
 }
@@ -40,17 +41,21 @@ function operate(operator,a,b) {
 numberButtons.forEach(button => {
     button.addEventListener("click", function(event) {
         firstLine.textContent += +event.target.textContent;
+        secondVariable += event.target.textContent;
     })
 })
 
 operatorButtons.forEach(button => {
     button.addEventListener("click", function(event) {
-        firstVariable.push(firstLine.textContent);
+        firstVariable.push(+secondVariable);
+        secondVariable = "";
         operator += event.target.textContent;
         firstLine.textContent += ` ` +event.target.textContent;
     })
 })
 
 resultButton.addEventListener("click", function() {
-    
+    firstVariable.push(+secondVariable);
+    final = operate(operator,firstVariable[0],firstVariable[1]);
+    secondLine.textContent = `${final}`;
 })
