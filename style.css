@@ -28,8 +28,10 @@ body {
 
 #lineOne,
 #lineTwo {
-    flex: auto;
-    text-align: right;
+    display: flex;
+    flex: 0 0 50px;
+    justify-content: end;
+    align-items: center;
 }
 #lineOne {
     border-bottom: 1px solid black;
