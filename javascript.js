@@ -1,7 +1,7 @@
 let firstVariable = [];
 let secondVariable = "";
 let operator = "";
-let final;
+let final = 0;
 const numberButtons = Array.from(document.getElementsByClassName("button"));
 const operatorButtons = Array.from(document.getElementsByClassName("operator"));
 const resultButton = document.getElementById("result");
@@ -33,8 +33,21 @@ function operate(operator,a,b) {
     } else if (operator == "*") {
         return multiply(a,b);
     } else if (operator == "/") {
+        if (b != 0){
         return divide(a,b)
+        } else {
+            firstLine.textContent = "Division by zero error";
+            secondLine.textContent = "Division by zero error";
+        }
     }
+}
+
+function clear() {
+    firstVariable.splice(0);
+    secondVariable = "";
+    firstLine.textContent = "";
+    secondLine.textContent = "";
+    operator = "";
 }
 
 numberButtons.forEach(button => {
@@ -46,29 +59,34 @@ numberButtons.forEach(button => {
 
 operatorButtons.forEach(button => {
     button.addEventListener("click", function(event) {
+        if (operator != "" && firstVariable[0] == final) {
+            operator = "";
+            operator += event.target.textContent;
+            firstLine.textContent = `${firstVariable[0]}` + ` ` +event.target.textContent + ` `;
+            secondLine.textContent = "";
+        } else if (operator != "" && firstVariable[0] != final) {
+            firstVariable.push(+secondVariable);
+            final = Math.floor(operate(operator,firstVariable[0],firstVariable[1])*1000)/1000;
+            firstLine.textContent += ` ` +event.target.textContent + ` `;
+            secondLine.textContent = `${final}`;
+            firstVariable[0] = +final;
+            firstVariable.splice(1);
+            secondVariable = "";
+        } else {
         firstVariable.push(+secondVariable);
         secondVariable = "";
         operator += event.target.textContent;
-        firstLine.textContent += ` ` +event.target.textContent + ` `;
+        firstLine.textContent += ` ` +event.target.textContent + ` `;}
     })
 })
 
 resultButton.addEventListener("click", function() {
-    firstVariable.push(+secondVariable);
-    if(firstVariable.length != 2) {
-        alert("Please enter numbers")
-    } else {
+        firstVariable.push(+secondVariable);
         final = Math.floor(operate(operator,firstVariable[0],firstVariable[1])*1000)/1000;
         secondLine.textContent = `${final}`;
-        firstVariable[0] = final;
+        firstVariable[0] = +final;
         firstVariable.splice(1);
-    }
-})
+        secondVariable = "";
+    })
 
-clearButton.addEventListener("click", function() {
-    firstVariable.splice(0);
-    secondVariable = "";
-    firstLine.textContent = "";
-    secondLine.textContent = "";
-    operator = "";
-})
+clearButton.addEventListener("click", clear);
